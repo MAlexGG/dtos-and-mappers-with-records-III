@@ -5,6 +5,8 @@ This is the continuation of an API that manages students and the school they are
 
 The Student only get to see part of their attributes and the university will be able to see the list of students enrolled in a school; the structure of the response will be modified, showing the school id, the name, and within an array the list of students that only includes part of their attributes.
 
+When students create an account, they can only enter the name, lastname and dni_nie. So a RequestDTO will be used.
+
 Map Struct is used for mapping entity to DTO.
 
 ### Objective

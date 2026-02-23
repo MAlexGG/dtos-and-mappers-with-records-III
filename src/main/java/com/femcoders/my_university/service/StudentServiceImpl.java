@@ -1,11 +1,10 @@
 package com.femcoders.my_university.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
-import com.femcoders.my_university.dto.SchoolResponseDTO;
-import com.femcoders.my_university.dto.StudentResponseDTO;
+import com.femcoders.my_university.dto.request.StudentRequestDTO;
+import com.femcoders.my_university.dto.response.SchoolResponseDTO;
+import com.femcoders.my_university.dto.response.StudentResponseDTO;
 import com.femcoders.my_university.entity.School;
 import com.femcoders.my_university.entity.Student;
 import com.femcoders.my_university.mapper.SchoolMapper;
@@ -29,9 +28,12 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentResponseDTO getStudentById(int id) {
-        Optional<Student> student = studentRepository.findById(id);
-        if(student.isEmpty()) throw new RuntimeException("No existe estudiante");
-        StudentResponseDTO response = studentMapper.toResponseDTO(student.get());
+        /* Optional<Student> student = studentRepository.findById(id);
+        if(student.isEmpty()) throw new RuntimeException("No existe estudiante"); */
+
+        //Para evitar usar Optional podemos usar orElseThrow y llamar a los 
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Estudiante no encontrado"));
+        StudentResponseDTO response = studentMapper.toResponseDTO(student);
         return response;
     }
 
@@ -39,9 +41,17 @@ public class StudentServiceImpl implements StudentService {
     public SchoolResponseDTO getStudentsBySchool(String name) {
         School school = schoolService.getSchoolByName(name);
         if(school == null) throw new RuntimeException("No existe esa escuela");
-        //List<Student> students = studentRepository.findBySchool(school);
         SchoolResponseDTO response = schoolMapper.toResponseDTO(school);
         return response;
+    }
+
+    @Override
+    public Student createStudent(StudentRequestDTO studentDto, String schoolName) {
+        School school = schoolService.getSchoolByName(schoolName);
+        Student student = studentMapper.toEntity(studentDto);
+        student.setSchool(school);
+        Student newStudent = studentRepository.save(student);
+        return newStudent;
     }
 
     

@@ -6,6 +6,4 @@ public interface SchoolService {
 
     public School getSchoolByName(String name);
 
-    
-
 }

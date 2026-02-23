@@ -34,10 +34,10 @@ public class Student {
     @Column(nullable = false, unique = true)
     private String dni_nie;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer phone;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true)
     private String email;
 
     @ManyToOne
