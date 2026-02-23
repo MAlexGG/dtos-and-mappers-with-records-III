@@ -1,16 +1,15 @@
 package com.femcoders.my_university.service;
 
-import java.util.List;
-
-import com.femcoders.my_university.entity.Student;
+import com.femcoders.my_university.dto.SchoolResponseDTO;
+import com.femcoders.my_university.dto.StudentResponseDTO;
 
 public interface StudentService {
 
     //GET STUDENT BY ID
-    public Student getStudentById(int id);
+    public StudentResponseDTO getStudentById(int id);
 
     //GET STUDENTS BY SCHOOL
-    public List<Student> getStudentsBySchool(String name);
+    public SchoolResponseDTO getStudentsBySchool(String name);
 
 
 }
